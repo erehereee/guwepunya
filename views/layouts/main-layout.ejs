@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Monitoring PT.Sasa Inti</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="header">
+                <a href="/">
+                    <img src="assets/img/substation.png" alt="" class="icon">
+                    <span>Power Monitoring</span>
+                </a>
+            </div>
+            <div class="illustration">
+                <img src="" alt="">
+            </div>
+            <div class="main-menu">
+                <div class="menu">
+                    <a href="/">
+                        <img src="assets/img/dashboard.png" alt="" class="icon">
+                        <span class="description">Dashboard</span>
+                    </a>
+                </div>
+                <div class="menu">
+                    <a href="/pm">
+                        <img src="assets/img/plant.png" alt="" class="icon">
+                        <span class="description">Plant Monitoring</span>
+                    </a>
+                </div>
+                <div class="menu-list hide" id="energy-list">
+                    <a href="#">
+                        <img src="assets/img/energy.png" alt="" class="icon">
+                        <span class="description">Energy Monitoring</span>
+                    </a>
+                    <div class="list-item hide" id="energy-list-item">
+                        <a href="/pln">
+                            <li>PLN</li>
+                        </a>
+                        <a href="/genset">
+                            <li>Genset</li>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu">
+                    <a href="/report">
+                        <img src="assets/img/report.png" alt="" class="icon">
+                        <span class="description">Report</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="header-dashboard">
+                <div class="hamburger">
+                    <div class="menu" id="hamburger-button">
+                        <img src="assets/img/hamburger.png" alt="" class="small-icon">
+                    </div>
+                    <div class="power-state">
+                        Power State :
+                        <span>PLN</span>
+                    </div>
+                </div>
+                <div class="utility">
+                    <div class="alarm">
+                        <a href="">
+                            <img src="assets/img/alarm.png" alt="" class="small-icon">
+                        </a>
+                    </div>
+                    <div class="user">
+                        <a href="#">
+                            <img src="assets/img/user.png" alt="" class="small-icon">
+                        </a>
+                    </div>
+                    <div class="user-information">
+                        <span><%= username %></span>
+                    </div>
+                </div>
+                <div class="pop-up-wrap hide">
+                    <div class="sub-pop-up-wrap">
+                        <div class="user-info">
+                            <a href="">
+                                <img src="assets/img/setting.png" alt="" class="small-icon">
+                                <p>Setting</p>
+                            </a>
+                            <a href="user/logout">
+                                <img src="assets/img/logout.png" alt=""class="small-icon">
+                                <p>Log Out</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-dashboard">
+                <%- body %>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/plugin/chart.js/chart.umd.js"></script>
+    <script src="js/energy-summary-chart.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/power-data.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+GET http://localhost:3000/user/get
+
+###
+
+GET http://localhost:3000/
+
+###
+
+GET http://localhost:3000/user/data
+###
+POST http://localhost:3000/user/add
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "root",
+    "role"     : "ADMIN"
+}
+
+###
+
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "username" : "operator",
+    "password" : "root"
+}
+
+###
+
+GET  http://localhost:3000/user/logout

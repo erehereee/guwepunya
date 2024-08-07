@@ -1,0 +1,127 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/ubuntu-b-webfont.woff2') format('woff2'),
+       url('../assets/fonts/ubuntu-b-webfont.woff') format('woff');
+
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/ubuntu-m-webfont.woff2') format('woff2'),
+       url('../assets/fonts/ubuntu-m-webfont.woff') format('woff');
+
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/ubuntu-r-webfont.woff2') format('woff2'),
+       url('../assets/fonts/ubuntu-r-webfont.woff') format('woff');
+}
+
+:root {
+  --primary: rgb(219, 224, 228);
+    --secondary: rgb(223, 26, 26);
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Ubuntu';
+}
+body{
+  background: var(--primary);
+  overflow: hidden;
+}
+::selection{
+  background: rgba(223, 26, 26, 0.3);
+}
+.container{
+  max-width: 440px;
+  padding: 0 20px;
+  margin: 170px auto;
+}
+.wrapper{
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.1);
+}
+.wrapper .title{
+  height: 90px;
+  background: var(--secondary);
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form{
+  padding: 30px 25px 25px 25px;
+}
+.wrapper form .row{
+  height: 45px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.wrapper form .row input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 60px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+form .row input:focus{
+  border-color: var(--secondary);
+  box-shadow: inset 0px 0px 2px 2px rgba(223, 26, 26,0.25);
+}
+form .row input::placeholder{
+  color: #999;
+}
+.wrapper form .row i{
+  position: absolute;
+  width: 47px;
+  height: 100%;
+  color: #fff;
+  font-size: 18px;
+  background: var(--secondary);
+  border: 1px solid var(--secondary);
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form .pass{
+  margin: -8px 0 20px 0;
+}
+.wrapper form .pass a{
+  color: var(--secondary);
+  font-size: 17px;
+  text-decoration: none;
+}
+.wrapper form .pass a:hover{
+  text-decoration: underline;
+}
+.wrapper form .button input{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 0px;
+  background: var(--secondary);
+  border: 1px solid var(--secondary);
+  cursor: pointer;
+}
+form .button input:hover{
+  background: rgb(136, 15, 15);
+}

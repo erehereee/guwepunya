@@ -49,7 +49,7 @@ app.get('/', isAuth, (req, res) => {
     })
 })
 
-app.get('/pm', (req, res) => {
+app.get('/pm', isAuth, (req, res) => {
     res.render('plant', {
         layout : 'layouts/main-layout',
         title : 'Power Monitoring',
@@ -57,7 +57,7 @@ app.get('/pm', (req, res) => {
     })
 })
 
-app.get('/pln', (req, res) => {
+app.get('/pln', isAuth, (req, res) => {
     res.render('energy-pln', {
         layout : 'layouts/main-layout',
         title : 'EMon PLN',
@@ -65,7 +65,7 @@ app.get('/pln', (req, res) => {
     })
 })
 
-app.get('/genset', (req, res) => {
+app.get('/genset', isAuth, (req, res) => {
     res.render('energy-genset', {
         layout : 'layouts/main-layout',
         title : 'EMon Genset',
@@ -73,7 +73,7 @@ app.get('/genset', (req, res) => {
     })
 })
 
-app.get('/report', (req, res) => {
+app.get('/report', isAuth, (req, res) => {
     res.render('report', {
         layout : 'layouts/main-layout',
         title : 'Report',

@@ -12,7 +12,7 @@ POST http://localhost:3000/user/add
 Content-Type: application/json
 
 {
-    "username" : "operator",
+    "username" : "gleperodd",
     "password" : "root",
     "role"     : "ADMIN"
 }

@@ -12,11 +12,11 @@ const UserSignUp = async (req, res) => {
     const queryDB = `INSERT INTO users (username, password, role) VALUES ($1,$2,$3)`
     try {
         const addUser = await query(queryDB, [username, hashPassword, role]);
-        if(addUser.rows.length < 0) {
-            res.send("User not found");
+        if(addUser) {
+            res.status(201).send("User has been Added")
         }
         else {
-            res.send("User add successfully")
+            res.status(403).send("Failed to add User")
         }
     }
     catch {
@@ -27,7 +27,7 @@ const UserSignUp = async (req, res) => {
 
 const UserLogIn = async (req, res) => {
     const {username, password} = req.body;
-    const dataUser = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+    const dataUser = await pool.query("SELECT * FROM users WHERE username = $1 LIMIT 1", [username]);
     const userData = dataUser.rows.find(user => user.username === username);
         try {
             if(await bcrypt.compare(password, userData.password)) {

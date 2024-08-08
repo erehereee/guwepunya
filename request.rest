@@ -1,4 +1,4 @@
-GET http://localhost:3000/user/get
+GET http://localhost:3000/get
 
 ###
 
@@ -8,12 +8,12 @@ GET http://localhost:3000/
 
 GET http://localhost:3000/user/data
 ###
-POST http://localhost:3000/add
+POST http://localhost:3000/user/add
 Content-Type: application/json
 
 {
-    "username" : "glepero",
-    "password" : "mek",
+    "username" : "operator",
+    "password" : "root",
     "role"     : "ADMIN"
 }
 

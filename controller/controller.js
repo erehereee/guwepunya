@@ -1,6 +1,5 @@
-const { password } = require('pg/lib/defaults');
 const bcrypt = require('bcrypt');
-const pool = require('../helper/helperdb');
+const {query, pool} = require('../helper/helperdb');
 // const mongoServices = require('../helper/helpermongo');
 
 // const db = new mongoServices('power');
@@ -10,17 +9,21 @@ const pool = require('../helper/helperdb');
 const UserSignUp = async (req, res) => {
     const { username, password, role } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
-    const addUser = `INSERT INTO users (username, password, role) VALUES ($1,$2,$3)`
+    const queryDB = `INSERT INTO users (username, password, role) VALUES ($1,$2,$3)`
     try {
-        pool.query(addUser, [username, hashPassword, role], (error, results) => {
-            if(error) throw error;
-            res.status(201).send("User has been added");
-        })
+        const addUser = await query(queryDB, [username, hashPassword, role]);
+        if(addUser.rows.length < 0) {
+            res.send("User not found");
+        }
+        else {
+            res.send("User add successfully")
+        }
     }
     catch {
         res.status(500).send();
     }
 }
+
 
 const UserLogIn = async (req, res) => {
     const {username, password} = req.body;
@@ -28,6 +31,8 @@ const UserLogIn = async (req, res) => {
     const userData = dataUser.rows.find(user => user.username === username);
         try {
             if(await bcrypt.compare(password, userData.password)) {
+                req.session.isAuth = true;
+                req.session.user = userData.username;
                 res.redirect('/');
             }
             else {
@@ -41,9 +46,17 @@ const UserLogIn = async (req, res) => {
 
 }
 
+const UserLogout = async (req, res) => {
+    req.session.destroy(err => {
+        if(err) throw err;
+        res.redirect('/login');
+    })
+}
+
 
 
 module.exports = {
     UserSignUp,
     UserLogIn,
+    UserLogout
 }

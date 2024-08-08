@@ -8,23 +8,23 @@ GET http://localhost:3000/
 
 GET http://localhost:3000/user/data
 ###
-POST http://localhost:3000/user/add
+POST http://localhost:3000/add
 Content-Type: application/json
 
 {
-    "username" : "admin",
-    "password" : "root",
+    "username" : "glepero",
+    "password" : "mek",
     "role"     : "ADMIN"
 }
 
 ###
 
-POST http://localhost:3000/user/login
+POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username" : "operator",
-    "password" : "root"
+    "username" : "glepero",
+    "password" : "mek"
 }
 
 ###

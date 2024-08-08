@@ -11,11 +11,11 @@ const popUp = document.querySelector('.pop-up-wrap');
 
 const socket = io();
 
-socket.on('connect', () => {
-    console.log(`You Connected with socket id : ${socket.id}`);
-    socket.emit('minta', 'Minta Data');
-    socket.on('data', message => console.log(message))
-});
+// socket.on('connect', () => {
+//     console.log(`You Connected with socket id : ${socket.id}`);
+//     socket.emit('minta', 'Minta Data');
+//     socket.on('data', message => console.log(message))
+// });
 
 
 

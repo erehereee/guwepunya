@@ -4,17 +4,14 @@ const buttonClassLN = document.querySelector(
 const buttonClassLL = document.querySelector(
   ".container .main-content .main-dashboard .top .gauge-3phase"
 );
-const titleText = document.querySelector(
-  ".container .main-content .main-dashboard .top .selector .title h3"
-);
-const testGet1 = buttonClassLN.getAttribute("class");
+const titleText = document.querySelector(".title h3");
 
 phaseButton.addEventListener("click", function () {
   buttonClassLN.classList.toggle("hide");
   buttonClassLL.classList.toggle("hide");
-  if (testGet1 == "gauge-1phase hide") {
-    titleText.innerHTML = "Voltage/Current 1 Phase";
+  if (buttonClassLL.classList.contains("hide")) {
+    titleText.textContent = "Voltage/Current 1 Phase";
   } else {
-    titleText.innerHTML = "Voltage/Current 3 Phase";
+    titleText.textContent = "Voltage/Current 3 Phase";
   }
 });

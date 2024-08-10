@@ -1,6 +1,6 @@
                 <div class="selector">
                     <div class="title">
-                        <h3>Voltage/Current 1 Phase</h3>
+                        <h3>Voltage/Current 3 Phase</h3>
                     </div>
                     <button class="phase3" id="change-button">
                         CHANGE
@@ -13,57 +13,57 @@
                                 <div class="card-header">
                                     R-N Voltage
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body vandata">
                                     Lorem
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header">
+                            <!-- <div class="card">
+                                <div class="card-header va">
                                     R-N Current
                                 </div>
                                 <div class="card-body">
                                     Lorem
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card">
                                 <div class="card-header">
                                     S-N Voltage
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body vbndata">
                                     Lorem
                                 </div>
                             </div>
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header">
                                     S-N Current
                                 </div>
                                 <div class="card-body">
                                     Lorem
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card">
                                 <div class="card-header">
                                     T-N Voltage
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body vcndata">
                                     Lorem
                                 </div>
                             </div>
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-header">
                                     T-N Current
                                 </div>
                                 <div class="card-body">
                                     Lorem
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="gauge-3phase">
                             <div class="card">
                                 <div class="card-header">
                                     R-S Voltage
                                 </div>
-                                <div class="card-body vadata">
+                                <div class="card-body vabdata">
                                     Lorem
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                 <div class="card-header">
                                     S-T Voltage
                                 </div>
-                                <div class="card-body vbdata">
+                                <div class="card-body vbcdata">
                                     Lorem
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 <div class="card-header">
                                     T-R Voltage
                                 </div>
-                                <div class="card-body vcdata">
+                                <div class="card-body vcadata">
                                     Lorem
                                 </div>
                             </div>
@@ -119,43 +119,60 @@
                     <div class="left">
                         <div class="card">
                             <div class="card-header">
-                                S-T Voltage
+                                Total today
                             </div>
-                            <div class="card-body">
+                            <div class="card-body total-today">
                                 Lorem
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                S-T Current
+                                Total this month
                             </div>
-                            <div class="card-body">
+                            <div class="card-body total-this-month">
                                 Lorem
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                T-R Voltage
+                                WBP today
                             </div>
-                            <div class="card-body">
+                            <div class="card-body wbp-today">
                                 Lorem
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                T-R Current
+                                LWBP today
                             </div>
-                            <div class="card-body">
+                            <div class="card-body lwbp-today">
+                                Lorem
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                Cost this month
+                            </div>
+                            <div class="card-body cost-month">
                                 Lorem
                             </div>
                         </div>
                     </div>
                     <div class="right">
-                        <canvas
-                        id="energy-chart"></canvas>
+                        <div class="chart">
+                            <div class="header-card-chart">
+                                <span>Chart Analytic</span>
+                            </div>
+                            <div class="body-card-chart">
+                                <canvas
+                                id="energy-chart" width="50vw" height="40vh"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <script src="/socket.io/socket.io.js"></script>
+                <script src="/plugin/chart.js/chart.umd.js"></script>
+                <script src="js/energy-summary-chart.js"></script>
                 <script src="js/script.js"></script>
                 <script src="js/pln-data.js"></script>
                 <script src="js/power-data.js"></script>

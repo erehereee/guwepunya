@@ -1,9 +1,12 @@
 const iadata = document.querySelector(".card-body.iadata");
 const ibdata = document.querySelector(".card-body.ibdata");
 const icdata = document.querySelector(".card-body.icdata");
-const vadata = document.querySelector(".card-body.vadata");
-const vbdata = document.querySelector(".card-body.vbdata");
-const vcdata = document.querySelector(".card-body.vcdata");
+const vabdata = document.querySelector(".card-body.vabdata");
+const vbcdata = document.querySelector(".card-body.vbcdata");
+const vcadata = document.querySelector(".card-body.vcadata");
+const vandata = document.querySelector(".card-body.vandata");
+const vbndata = document.querySelector(".card-body.vbndata");
+const vcndata = document.querySelector(".card-body.vcndata");
 const socket = io();
 
 socket.on("connect", () => {
@@ -21,14 +24,26 @@ socket.on("connect", () => {
   });
   socket.on("vabdata", (message) => {
     // return console.log(iadata);
-    vadata.innerHTML = message;
+    vabdata.innerHTML = message;
   });
   socket.on("vbcdata", (message) => {
     // return console.log(iadata);
-    vbdata.innerHTML = message;
+    vbcdata.innerHTML = message;
   });
   socket.on("vcadata", (message) => {
     // return console.log(iadata);
-    vcdata.innerHTML = message;
+    vcadata.innerHTML = message;
+  });
+  socket.on("vandata", (message) => {
+    // return console.log(iadata);
+    vandata.innerHTML = message;
+  });
+  socket.on("vbndata", (message) => {
+    // return console.log(iadata);
+    vbndata.innerHTML = message;
+  });
+  socket.on("vcndata", (message) => {
+    // return console.log(iadata);
+    vcndata.innerHTML = message;
   });
 });

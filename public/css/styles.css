@@ -411,7 +411,7 @@
     border-radius: 5px;
     display: flex;
     justify-content: flex-start;
-    height: 40px;
+    height: 5vh;
     padding: 2px;
     margin: 10px;
     flex: 1;
@@ -429,13 +429,14 @@
   }
   
   .container .main-content .main-dashboard .selector .title h3 {
+    font-size: 1.5vw;
     font-weight: 500;
     font-style: normal;
   }
-  .container .main-content .main-dashboard .selector button:active {
-    background-color: rgba(219, 224, 228, .5);
+  .container .main-content .main-dashboard .selector button:hover {
+    background-color: rgba(185, 187, 189, 0.87);
     display: flex;
-    width: 80px;
+    width: 7vw;
     margin: 2px;
     border: 1px solid black;
     border-radius: 3px;
@@ -444,12 +445,14 @@
     font-weight: 700;
     color: var(--secondary);
     cursor: pointer;
+    font-size: 2vh;
+    transition: all ease-in-out .2s;
   }
   
   .container .main-content .main-dashboard .selector button {
     background-color: var(--primary);
     display: flex;
-    width: 80px;
+    width: 7vw;
     margin: 2px;
     border: 1px solid;
     border-radius: 3px;
@@ -458,6 +461,8 @@
     font-weight: 700;
     color: var(--secondary);
     cursor: pointer;
+    font-size: 2vh;
+    transition: all ease-in-out .2s;
   }
   
   .container .main-content .main-dashboard .power-monitoring .top {    
@@ -502,10 +507,11 @@
     flex-direction: column;
     background-color:var(--secondary);
     margin: 10px;
-    width: 240px;
-    height: 150px;
+    width: 15vw;
+    height: 20vh;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
   }
   
   .container .main-content .main-dashboard .card .card-header {
@@ -513,10 +519,11 @@
     align-items: center;
     height: 40px;
     border-bottom: 1px solid;
-    padding: 10px;
+    padding: 2vh;
     box-sizing: border-box;
     font-style: normal;
     font-weight: 500;
+    font-size: 1.2vw;
     color: var(--primary);
   }
   
@@ -527,7 +534,7 @@
     margin: auto;
     flex: 1;
     color: var(--primary);
-    font-size: 40px;
+    font-size: 5vh;
     font-style: normal;
     font-weight: 700;
   }
@@ -554,15 +561,15 @@
     padding: 10px;
     box-sizing: border-box;
     flex-wrap: wrap;
-    flex: 2;
+    flex: 1;
     justify-content: center;
     align-items: center;
   }
   
-  .container .main-content .main-dashboard .energy-monitoring .right canvas { 
+  /* .container .main-content .main-dashboard .energy-monitoring .right canvas { 
     display: flex;
     flex: 1;
-  }
+  } */
   
   .pop-up-wrap.hide{
     position: absolute;
@@ -611,6 +618,44 @@
     font-size: 15px;
     color: var(--primary);
   }
+
+  .chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+  }
+
+  .header-card-chart {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    border-bottom: 1px solid;
+    padding: 2vh;
+    box-sizing: border-box;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.2vw;
+    border-color: var(--primary);
+    background-color: var(--secondary);
+    align-items: center;
+  }
+
+  
+
+  .body-card-chart {
+    display: flex;
+    height: 90%;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondary);
+  }
+
   
   
   

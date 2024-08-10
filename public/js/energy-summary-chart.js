@@ -14,9 +14,29 @@ let chart = new Chart(ctx, {
     ],
   },
   options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    responsive: true,
     scales: {
+      x: {
+        grid: {
+          color: "white",
+        },
+        ticks: {
+          color: "white",
+        },
+      },
       y: {
         beginAtZero: true,
+        grid: {
+          color: "white",
+        },
+        ticks: {
+          color: "white",
+        },
       },
     },
   },

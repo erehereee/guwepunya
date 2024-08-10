@@ -1,6 +1,7 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const cors = require("cors");
+const path = require("path");
 const { sessionDB } = require("../helper/helperdb");
 const { isAuth } = require("../controller/Auth");
 const router = require("../router/router");
@@ -8,8 +9,14 @@ const router = require("../router/router");
 const app = express();
 
 app.set("view engine", "ejs");
+
 app.use(express.static("public"));
+app.use(
+  "/css",
+  express.static(path.join(__dirname, "../node_modules/bootstrap/dist/css"))
+);
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cors());
 app.use(express.json());
 app.use(sessionDB);

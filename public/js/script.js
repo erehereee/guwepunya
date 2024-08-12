@@ -1,4 +1,5 @@
 const allSideMenu = document.querySelectorAll("#sidebar .side-menu.top li a");
+console.log(allSideMenu)
 
 allSideMenu.forEach((item) => {
   const li = item.parentElement;
@@ -32,7 +33,17 @@ const switchMode = document.getElementById("switch-mode");
 switchMode.addEventListener("change", function () {
   if (this.checked) {
     document.body.classList.add("dark");
+    chart.options.scales.x.grid.color = "white";
+    chart.options.scales.y.grid.color = "white";
+    chart.options.scales.x.ticks.color = "white";
+    chart.options.scales.y.ticks.color = "white";
+    chart.update();
   } else {
     document.body.classList.remove("dark");
+    chart.options.scales.x.grid.color = "black";
+    chart.options.scales.y.grid.color = "black";
+    chart.options.scales.x.ticks.color = "black";
+    chart.options.scales.y.ticks.color = "black";
+    chart.update();
   }
 });

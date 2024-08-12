@@ -22,41 +22,26 @@
     </div>
     <div class="box-body">
             <div>
-                <i class='bx bxs-calendar-check' ></i>
+                <i class='bx bxs-bolt'></i>
                 <span class="text">
-                    <h3 class="vabdata">1020</h3>
-                    <p>R Voltage</p>
+                    <h3 id="card1" class="vabdata">null</h3>
+                    <p class="card1">R Voltage</p>
                 </span>
             </div>
             <div>
-                <i class='bx bxs-calendar-check' ></i>
+                <i class='bx bxs-bolt'></i>
                 <span class="text">
-                    <h3 class="vbcdata">1020</h3>
-                    <p>S Voltage</p>
+                    <h3 id="card2" class="vbcdata">null</h3>
+                    <p class="card2">S Voltage</p>
                 </span>
             </div>
             <div>
-                <i class='bx bxs-calendar-check' ></i>
+                <i class='bx bxs-bolt'></i>
                 <span class="text">
-                    <h3 class="vcadata">1020</h3>
-                    <p>T Voltage</p>
+                    <h3 id="card3" class="vcadata">null</h3>
+                    <p class="card3">T Voltage</p>
                 </span>
             </div>
-            
-            <!-- <li>
-                <i class='bx bxs-group' ></i>
-                <span class="text">
-                    <h3>2834</h3>
-                    <p>Visitors</p>
-                </span>
-            </li>
-            <li>
-                <i class='bx bxs-dollar-circle' ></i>
-                <span class="text">
-                    <h3>$2543</h3>
-                    <p>Total Sales</p>
-                </span>
-            </li> -->
     </div>
 </div>
 <div class="table-data">
@@ -68,7 +53,7 @@
             <i class='bx bx-chevron-right'></i>
         </div>
         <canvas
-            id="energy-chart" width="50vw" height="40vh"></canvas>
+            id="energy-chart"></canvas>
     </div>
     <div class="todo">
         <div class="head">
@@ -77,23 +62,23 @@
             <ul class="todo-list">
                 <li class="completed">
                     <p><strong>WBP</strong></p>
-                    <p>Value</p>
+                    <p class="wbp">null</p>
                 </li>
                 <li class="completed">
                     <p><strong>LWBP</strong></p>
-                    <p>Value</p>
+                    <p class="lwbp">null</p>
                 </li>
                 <li class="completed">
                     <p><strong>Cost this month</strong></p>
-                    <p>Value</p>
+                    <p class="cost">null</p>
                 </li>
                 <li class="completed">
                     <p><strong>Total today</strong></p>
-                    <p>Value</p>
+                    <p class="total-today">null</p>
                 </li>
                 <li class="completed">
                     <p><strong>Total this month</strong></p>
-                    <p>Value</p>
+                    <p class="total-month">null</p>
                 </li>
             </ul>
     </div>
@@ -103,3 +88,49 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/energy-summary-chart.js"></script>
 <script src="js/script.js"></script>
+<script src="js/e-mon.js"></script>
+
+
+<%- contentFor('nav') %>
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <i class='bx bx-code-alt'></i>
+        <span class="text">Plant Monitoring</span>
+    </a>
+    <ul class="side-menu top">
+        <li>
+            <a href="/">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="/pm">
+                <i class='bx bxs-factory'></i>
+                <span class="text">Plant Monitoring</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/pln">
+                <i class='bx bx-bolt-circle'></i>
+                <span class="text">Energy Monitoring</span>
+            </a>
+        </li>
+        <li>
+            <a href="/report">
+                <i class='bx bx-bar-chart-square'></i>
+                <span class="text">Report</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="user/logout" class="logout">
+                <i class='bx bx-log-out' ></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->

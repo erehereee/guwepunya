@@ -1,17 +1,39 @@
-const buttonClassLN = document.querySelector(
-  ".container .main-content .main-dashboard .top .gauge-1phase"
+const card1 = document.querySelector(
+  ".card1"
 );
-const buttonClassLL = document.querySelector(
-  ".container .main-content .main-dashboard .top .gauge-3phase"
+const card2 = document.querySelector(
+  ".card2"
 );
-const titleText = document.querySelector(".title h3");
+const card3 = document.querySelector(
+  ".card3"
+);
 
-phaseButton.addEventListener("click", function () {
-  buttonClassLN.classList.toggle("hide");
-  buttonClassLL.classList.toggle("hide");
-  if (buttonClassLL.classList.contains("hide")) {
-    titleText.textContent = "Voltage/Current 1 Phase";
-  } else {
-    titleText.textContent = "Voltage/Current 3 Phase";
+const data1 = document.getElementById(
+  "card1"
+);
+const data2 = document.getElementById(
+  "card2"
+);
+const data3 = document.getElementById(
+  "card3"
+);
+const buttonChange = document.querySelector('.btn-download')
+
+buttonChange.addEventListener("click", function () {
+  const isvabData = data1.classList.toggle('vandata');
+  const isvbcData = data2.classList.toggle('vbndata');
+  const isvcaData = data3.classList.toggle('vcndata');
+  data1.classList.toggle('vabdata', !isvabData);
+  data2.classList.toggle('vbcdata', !isvbcData);
+  data3.classList.toggle('vcadata', !isvcaData);
+  if (data1.classList.contains("vabdata")) {
+    card1.textContent = "R-N Voltage"
+    card2.textContent = "S-N Voltage" 
+    card3.textContent = "T-N Voltage"
+  }
+  else {
+    card1.textContent = "R Voltage"
+    card2.textContent = "S Voltage"
+    card3.textContent = "T Voltage"
   }
 });

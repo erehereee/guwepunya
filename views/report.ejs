@@ -1,3 +1,4 @@
+
 <div class="head-title">
     <div class="left">
         <h1>Report</h1>
@@ -13,3 +14,48 @@
     </div>
 </div>
 <script src="js/script.js"></script>
+
+
+<%- contentFor('nav') %>
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <i class='bx bx-code-alt'></i>
+        <span class="text">Plant Monitoring</span>
+    </a>
+    <ul class="side-menu top">
+        <li>
+            <a href="/">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="/pm">
+                <i class='bx bxs-factory'></i>
+                <span class="text">Plant Monitoring</span>
+            </a>
+        </li>
+        <li>
+            <a href="/pln">
+                <i class='bx bx-bolt-circle'></i>
+                <span class="text">Energy Monitoring</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/report">
+                <i class='bx bx-bar-chart-square'></i>
+                <span class="text">Report</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="user/logout" class="logout">
+                <i class='bx bx-log-out' ></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->

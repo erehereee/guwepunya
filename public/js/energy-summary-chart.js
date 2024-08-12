@@ -23,19 +23,19 @@ let chart = new Chart(ctx, {
     scales: {
       x: {
         grid: {
-          color: "white",
+          color: "black",
         },
         ticks: {
-          color: "white",
+          color: "black",
         },
       },
       y: {
         beginAtZero: true,
         grid: {
-          color: "white",
+          color: "black",
         },
         ticks: {
-          color: "white",
+          color: "black",
         },
       },
     },

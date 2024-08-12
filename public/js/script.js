@@ -1,29 +1,38 @@
-const button = document.getElementById("hamburger-button");
-const energyList = document.getElementById("energy-list");
-const energyListItem = document.getElementById("energy-list-item");
-const phaseButton = document.getElementById("change-button");
-const infoUser = document.querySelector(".user");
-const popUp = document.querySelector(".pop-up-wrap");
+const allSideMenu = document.querySelectorAll("#sidebar .side-menu.top li a");
 
-button.addEventListener("click", function () {
-  const buttonClass = document.querySelector(".container .sidebar");
-  buttonClass.classList.toggle("hide");
+allSideMenu.forEach((item) => {
+  const li = item.parentElement;
+
+  item.addEventListener("click", function () {
+    allSideMenu.forEach((i) => {
+      i.parentElement.classList.remove("active");
+    });
+    li.classList.add("active");
+  });
 });
 
-energyList.addEventListener("mouseleave", function () {
-  energyList.classList.add("hide");
-  energyListItem.classList.add("hide");
+// TOGGLE SIDEBAR
+const menuBar = document.querySelector("#content nav .bx.bx-menu");
+const sidebar = document.getElementById("sidebar");
+
+menuBar.addEventListener("click", function () {
+  sidebar.classList.toggle("hide");
 });
 
-energyList.addEventListener("click", function () {
-  energyList.classList.toggle("hide");
-  energyListItem.classList.toggle("hide");
-});
+const searchButton = document.querySelector(
+  "#content nav form .form-input button"
+);
+const searchButtonIcon = document.querySelector(
+  "#content nav form .form-input button .bx"
+);
+const searchForm = document.querySelector("#content nav form");
 
-// document.addEventListener("click", function () {
-//   popUp.classList.add("hide");
-// });
+const switchMode = document.getElementById("switch-mode");
 
-infoUser.addEventListener("click", () => {
-  popUp.classList.toggle("hide");
+switchMode.addEventListener("change", function () {
+  if (this.checked) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
 });

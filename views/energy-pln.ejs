@@ -1,179 +1,105 @@
-                <div class="selector">
-                    <div class="title">
-                        <h3>Voltage/Current 3 Phase</h3>
-                    </div>
-                    <button class="phase3" id="change-button">
-                        CHANGE
-                    </button>
-                </div>
-                <div class="power-monitoring">
-                    <div class="top">
-                        <div class="gauge-1phase hide">
-                            <div class="card">
-                                <div class="card-header">
-                                    R-N Voltage
-                                </div>
-                                <div class="card-body vandata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <!-- <div class="card">
-                                <div class="card-header va">
-                                    R-N Current
-                                </div>
-                                <div class="card-body">
-                                    Lorem
-                                </div>
-                            </div> -->
-                            <div class="card">
-                                <div class="card-header">
-                                    S-N Voltage
-                                </div>
-                                <div class="card-body vbndata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <!-- <div class="card">
-                                <div class="card-header">
-                                    S-N Current
-                                </div>
-                                <div class="card-body">
-                                    Lorem
-                                </div>
-                            </div> -->
-                            <div class="card">
-                                <div class="card-header">
-                                    T-N Voltage
-                                </div>
-                                <div class="card-body vcndata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <!-- <div class="card">
-                                <div class="card-header">
-                                    T-N Current
-                                </div>
-                                <div class="card-body">
-                                    Lorem
-                                </div>
-                            </div> -->
-                        </div>
-                        <div class="gauge-3phase">
-                            <div class="card">
-                                <div class="card-header">
-                                    R-S Voltage
-                                </div>
-                                <div class="card-body vabdata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    R-S Current
-                                </div>
-                                <div class="card-body iadata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    S-T Voltage
-                                </div>
-                                <div class="card-body vbcdata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    S-T Current
-                                </div>
-                                <div class="card-body ibdata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    T-R Voltage
-                                </div>
-                                <div class="card-body vcadata">
-                                    Lorem
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    T-R Current
-                                </div>
-                                <div class="card-body icdata" id="T-R">
-                                    Lorem
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="selector">
-                    <div class="title">
-                        <h3>Energy Monitoring</h3>
-                    </div>
-                </div>
-                <div class="energy-monitoring">
-                    <div class="left">
-                        <div class="card">
-                            <div class="card-header">
-                                Total today
-                            </div>
-                            <div class="card-body total-today">
-                                Lorem
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                Total this month
-                            </div>
-                            <div class="card-body total-this-month">
-                                Lorem
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                WBP today
-                            </div>
-                            <div class="card-body wbp-today">
-                                Lorem
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                LWBP today
-                            </div>
-                            <div class="card-body lwbp-today">
-                                Lorem
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                Cost this month
-                            </div>
-                            <div class="card-body cost-month">
-                                Lorem
-                            </div>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="chart">
-                            <div class="header-card-chart">
-                                <span>Chart Analytic</span>
-                            </div>
-                            <div class="body-card-chart">
-                                <canvas
-                                id="energy-chart" width="50vw" height="40vh"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script src="/socket.io/socket.io.js"></script>
-                <script src="/plugin/chart.js/chart.umd.js"></script>
-                <script src="js/energy-summary-chart.js"></script>
-                <script src="js/script.js"></script>
-                <script src="js/pln-data.js"></script>
-                <script src="js/power-data.js"></script>
-                <script src="js/e-mon.js"></script>
+<div class="head-title">
+    <div class="left">
+        <h1>Energy Monitoring</h1>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Energy Monitoring</a>
+            </li>
+            <li><i class='bx bx-chevron-right' ></i></li>
+            <li>
+                <a class="active" href="#">Home</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="head-main">
+    <div class="box-head">
+        <h3>Power Information</h3>
+        <a href="#" class="btn-download">
+            <span class="text">Change Data</span>
+        </a>
+    </div>
+    <div class="box-body">
+            <div>
+                <i class='bx bxs-calendar-check' ></i>
+                <span class="text">
+                    <h3 class="vabdata">1020</h3>
+                    <p>R Voltage</p>
+                </span>
+            </div>
+            <div>
+                <i class='bx bxs-calendar-check' ></i>
+                <span class="text">
+                    <h3 class="vbcdata">1020</h3>
+                    <p>S Voltage</p>
+                </span>
+            </div>
+            <div>
+                <i class='bx bxs-calendar-check' ></i>
+                <span class="text">
+                    <h3 class="vcadata">1020</h3>
+                    <p>T Voltage</p>
+                </span>
+            </div>
+            
+            <!-- <li>
+                <i class='bx bxs-group' ></i>
+                <span class="text">
+                    <h3>2834</h3>
+                    <p>Visitors</p>
+                </span>
+            </li>
+            <li>
+                <i class='bx bxs-dollar-circle' ></i>
+                <span class="text">
+                    <h3>$2543</h3>
+                    <p>Total Sales</p>
+                </span>
+            </li> -->
+    </div>
+</div>
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Graph Analytic</h3>
+            <p>Monthly</p>
+            <i class='bx bx-chevron-left'></i>
+            <i class='bx bx-chevron-right'></i>
+        </div>
+        <canvas
+            id="energy-chart" width="50vw" height="40vh"></canvas>
+    </div>
+    <div class="todo">
+        <div class="head">
+            <h3>Energy Usage</h3>
+        </div>
+            <ul class="todo-list">
+                <li class="completed">
+                    <p><strong>WBP</strong></p>
+                    <p>Value</p>
+                </li>
+                <li class="completed">
+                    <p><strong>LWBP</strong></p>
+                    <p>Value</p>
+                </li>
+                <li class="completed">
+                    <p><strong>Cost this month</strong></p>
+                    <p>Value</p>
+                </li>
+                <li class="completed">
+                    <p><strong>Total today</strong></p>
+                    <p>Value</p>
+                </li>
+                <li class="completed">
+                    <p><strong>Total this month</strong></p>
+                    <p>Value</p>
+                </li>
+            </ul>
+    </div>
+</div>
+
+<script src="plugin/chart.js/chart.umd.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/energy-summary-chart.js"></script>
+<script src="js/script.js"></script>

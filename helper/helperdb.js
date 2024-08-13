@@ -4,9 +4,9 @@ const pgSession = require("connect-pg-simple")(expressSession);
 
 const pool = new Pool({
   host: "localhost",
-  user: "postgres",
-  password: "root",
-  database: "postgres",
+  user: "pm",
+  password: "mtuspan24",
+  database: "power",
   port: "5432",
 });
 

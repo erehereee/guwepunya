@@ -1,5 +1,4 @@
 const allSideMenu = document.querySelectorAll("#sidebar .side-menu.top li a");
-console.log(allSideMenu)
 
 allSideMenu.forEach((item) => {
   const li = item.parentElement;

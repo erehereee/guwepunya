@@ -1,49 +1,58 @@
-const iadata = document.querySelector(".card-body.iadata");
-const ibdata = document.querySelector(".card-body.ibdata");
-const icdata = document.querySelector(".card-body.icdata");
-const vabdata = document.querySelector(".card-body.vabdata");
-const vbcdata = document.querySelector(".card-body.vbcdata");
-const vcadata = document.querySelector(".card-body.vcadata");
-const vandata = document.querySelector(".card-body.vandata");
-const vbndata = document.querySelector(".card-body.vbndata");
-const vcndata = document.querySelector(".card-body.vcndata");
+const cardData1 = document.getElementById("card1");
+const cardData2 = document.getElementById("card2");
+const cardData3 = document.getElementById("card3");
+const total_today = document.querySelector(".total-today");
+const total_monthly = document.querySelector(".total-monthly");
+const cost = document.querySelector(".cost");
 const socket = io();
 
 socket.on("connect", () => {
-  socket.on("iadata", (message) => {
-    // return console.log(iadata);
-    iadata.innerHTML = message;
-  });
-  socket.on("ibdata", (message) => {
-    // return console.log(iadata);
-    ibdata.innerHTML = message;
-  });
-  socket.on("icdata", (message) => {
-    // return console.log(iadata);
-    icdata.innerHTML = message;
-  });
   socket.on("vabdata", (message) => {
     // return console.log(iadata);
-    vabdata.innerHTML = message;
+    if (cardData1.classList.contains("vabdata")) {
+      cardData1.innerHTML = message;
+    }
   });
   socket.on("vbcdata", (message) => {
     // return console.log(iadata);
-    vbcdata.innerHTML = message;
+    if (cardData2.classList.contains("vbcdata")) {
+      cardData2.innerHTML = message;
+    }
   });
   socket.on("vcadata", (message) => {
     // return console.log(iadata);
-    vcadata.innerHTML = message;
+    if (cardData3.classList.contains("vcadata")) {
+      cardData3.innerHTML = message;
+    }
   });
   socket.on("vandata", (message) => {
     // return console.log(iadata);
-    vandata.innerHTML = message;
+    if (cardData1.classList.contains("vandata")) {
+      cardData1.innerHTML = message;
+    }
   });
   socket.on("vbndata", (message) => {
     // return console.log(iadata);
-    vbndata.innerHTML = message;
+    if (cardData2.classList.contains("vbndata")) {
+      cardData2.innerHTML = message;
+    }
   });
   socket.on("vcndata", (message) => {
     // return console.log(iadata);
-    vcndata.innerHTML = message;
+    if (cardData3.classList.contains("vcndata")) {
+      cardData3.innerHTML = message;
+    }
+  });
+  socket.on("data_daily", (message) => {
+    // return console.log(iadata);
+    total_today.innerHTML = message + " kWh";
+  });
+  socket.on("data_monthly", (message) => {
+    // return console.log(iadata);
+    total_monthly.innerHTML = message + " kWh";
+  });
+  socket.on("cost", (message) => {
+    // return console.log(iadata);
+    cost.innerHTML = message;
   });
 });

@@ -61,14 +61,71 @@ async function getMonth(socket) {
   });
 }
 
+async function graphA(socket) {
+  const data = [
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+  ];
+  socket.emit("graphA", data);
+}
+
+async function graphB(socket) {
+  const data = [
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+  ];
+  socket.emit("graphB", data);
+}
+
+async function graphC(socket) {
+  const data = [
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+    Math.floor(Math.random() * 101),
+  ];
+  socket.emit("graphC", data);
+}
+
 function initializeSocket(io) {
   io.on("connection", async (socket) => {
     console.log(`Socket Connected : ${socket.id}`);
 
     setInterval(async () => {
-      await getCummon(socket);
-      await getToday(socket);
-      await getMonth(socket);
+      await graphA(socket);
+      await graphB(socket);
+      await graphC(socket);
+      // await getCummon(socket);
+      // await getToday(socket);
+      // await getMonth(socket);
     }, 1000);
   });
 }

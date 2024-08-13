@@ -29,6 +29,25 @@ const searchForm = document.querySelector("#content nav form");
 
 const switchMode = document.getElementById("switch-mode");
 
+document.querySelector(".logout").addEventListener("click", async function () {
+  try {
+    const response = await fetch("user/logout", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      window.location.href = "/login";
+    } else {
+      console.error("Logout failed:", await response.text());
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+});
+
 switchMode.addEventListener("change", function () {
   if (this.checked) {
     document.body.classList.add("dark");

@@ -32,20 +32,21 @@ const UserLogIn = async (req, res) => {
     if (await bcrypt.compare(password, userData.password)) {
       req.session.isAuth = true;
       req.session.user = userData.username;
-      res.redirect("/");
+      res.status(202).json({ message: "Login Successfuly" });
     } else {
-      res.redirect("/login");
+      res.status(202).json({ message: "User not found" });
     }
   } catch {
-    res.redirect("/login");
-    res.status(500);
+    res.status(500).send({ message: "Internal Server Error" });
   }
 };
 
 const UserLogout = async (req, res) => {
   req.session.destroy((err) => {
-    if (err) throw err;
-    res.redirect("/login");
+    if (err) {
+      return res.status(500).send({ message: "Error logging out." });
+    }
+    res.send({ message: "Logout Successfuly" });
   });
 };
 

@@ -1,13 +1,14 @@
+require('dotenv').config()
 const Pool = require("pg").Pool;
 const expressSession = require("express-session");
 const pgSession = require("connect-pg-simple")(expressSession);
 
 const pool = new Pool({
-  host: "localhost",
-  user: "pm",
-  password: "mtuspan24",
-  database: "power",
-  port: "5432",
+  host: process.env.SQL_LOCALHOST,
+  user: process.env.SQL_USER,
+  password: process.env.SQL_PASSWORD,
+  database: process.env.SQL_DATABASE,
+  port: process.env.SQL_PORT,
 });
 
 async function checkConnection() {

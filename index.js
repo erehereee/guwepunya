@@ -1,23 +1,23 @@
+require("dotenv").config();
 const http = require("http");
 const app = require("./services/app");
-const initializeSocket = require("./services/dataClient");
-const { checkConnection, createDB } = require("./helper/helperdb");
+const wsStart = require("./services/dataClient");
+const { checkConnection, initialDBSet } = require("./helper/helperdb");
 
 async function startServer() {
   const isConnected = await checkConnection();
 
   if (isConnected) {
+    await initialDBSet();
+
     const server = http.createServer(app);
     const mqtt = require("./services/insertData");
-    const io = require("socket.io")(server);
-    const port = 3000;
+    const port = process.env.PORT_SERVER;
 
-    createDB();
-
-    initializeSocket(io);
+    wsStart(server);
 
     server.listen(port, () => {
-      console.log(`Server listening on port : ${port}`);
+      console.log(`Server listening on ${process.env.LOCALHOST}:${port}`);
     });
   } else {
     console.error("Cannot start server : Database Connection Failed");

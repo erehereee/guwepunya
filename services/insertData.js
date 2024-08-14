@@ -1,3 +1,4 @@
+require("dotenv").config();
 const client = require("mqtt");
 const { query } = require("../helper/helperdb");
 
@@ -19,11 +20,9 @@ let dateYesterdayFormat = new Intl.DateTimeFormat("fr-CA", {
   year: "numeric",
 }).format(dateNow.setDate(dateNow.getDate() - 1));
 
-console.log(dateYesterdayFormat);
-
 let dateFragment = dateNowFormat.split("-");
 
-const mqtt = client.connect("mqtt://localhost", option);
+const mqtt = client.connect(process.env.MQTT_SERVER, option);
 
 mqtt.on("connect", () => {
   mqtt.subscribe("data/pm/ATS", (err) => {

@@ -1,3 +1,4 @@
+const { Server } = require("socket.io");
 const { query } = require("../helper/helperdb");
 
 let date = new Intl.DateTimeFormat("fr-CA", {
@@ -68,7 +69,8 @@ async function graphC(socket) {
   socket.emit("yearData", result.rows);
 }
 
-function initializeSocket(io) {
+function initializeSocket(server) {
+  const io = new Server(server);
   io.on("connection", async (socket) => {
     console.log(`Socket Connected : ${socket.id}`);
 

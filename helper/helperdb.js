@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const Pool = require("pg").Pool;
 const expressSession = require("express-session");
 const pgSession = require("connect-pg-simple")(expressSession);
@@ -54,8 +54,6 @@ async function createDB() {
   }
 }
 
-createDB();
-
 const sessionDB = expressSession({
   store: new pgSession({
     pool: pool,
@@ -72,4 +70,5 @@ module.exports = {
   sessionDB,
   query,
   checkConnection,
+  createDB,
 };

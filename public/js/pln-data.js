@@ -1,58 +1,49 @@
+const socket = io();
 const cardData1 = document.getElementById("card1");
 const cardData2 = document.getElementById("card2");
 const cardData3 = document.getElementById("card3");
 const total_today = document.querySelector(".total-today");
 const total_monthly = document.querySelector(".total-monthly");
 const cost = document.querySelector(".cost");
-const socket = io();
 
 socket.on("connect", () => {
-  socket.on("vabdata", (message) => {
-    // return console.log(iadata);
-    if (cardData1.classList.contains("vabdata")) {
-      cardData1.innerHTML = message;
-    }
+  socket.on("dataCummon", (message) => {
+    message.forEach((e) => {
+      if (cardData1.classList.contains("vabdata")) {
+        cardData1.textContent = e.vabdata;
+        cardData2.textContent = e.vbcdata;
+        cardData3.textContent = e.vcadata;
+      } else {
+        cardData1.textContent = e.vandata;
+        cardData2.textContent = e.vbndata;
+        cardData3.textContent = e.vcndata;
+      }
+    });
   });
-  socket.on("vbcdata", (message) => {
-    // return console.log(iadata);
-    if (cardData2.classList.contains("vbcdata")) {
-      cardData2.innerHTML = message;
-    }
+  socket.on("dataToday", (message) => {
+    message.forEach((e) => {
+      const total_daily = e.data_daily / 1000;
+      total_today.textContent = total_daily
+        .toLocaleString("id-ID")
+        .split(",")[0];
+    });
   });
-  socket.on("vcadata", (message) => {
-    // return console.log(iadata);
-    if (cardData3.classList.contains("vcadata")) {
-      cardData3.innerHTML = message;
-    }
-  });
-  socket.on("vandata", (message) => {
-    // return console.log(iadata);
-    if (cardData1.classList.contains("vandata")) {
-      cardData1.innerHTML = message;
-    }
-  });
-  socket.on("vbndata", (message) => {
-    // return console.log(iadata);
-    if (cardData2.classList.contains("vbndata")) {
-      cardData2.innerHTML = message;
-    }
-  });
-  socket.on("vcndata", (message) => {
-    // return console.log(iadata);
-    if (cardData3.classList.contains("vcndata")) {
-      cardData3.innerHTML = message;
-    }
-  });
-  socket.on("data_daily", (message) => {
-    // return console.log(iadata);
-    total_today.innerHTML = message + " kWh";
-  });
-  socket.on("data_monthly", (message) => {
-    // return console.log(iadata);
-    total_monthly.innerHTML = message + " kWh";
-  });
-  socket.on("cost", (message) => {
-    // return console.log(iadata);
-    cost.innerHTML = message;
+  socket.on("dataMonthly", (message) => {
+    message.forEach((e) => {
+      const data_monthly = e.data_monthly / 1000;
+
+      const tarif = 1.444;
+      let dataTarif = data_monthly * tarif * 1000;
+
+      let newAmount = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+      }).format(dataTarif);
+
+      total_monthly.textContent = data_monthly
+        .toLocaleString("id-ID")
+        .split(",")[0];
+      cost.textContent = newAmount;
+    });
   });
 });

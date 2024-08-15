@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { DateTime } = require("luxon");
 const client = require("mqtt");
 const { query } = require("../helper/helperdb");
 
@@ -6,21 +7,17 @@ const option = {
   username: "ereh",
   password: "ereh",
 };
-let dateNow = new Date();
 
-let dateNowFormat = new Intl.DateTimeFormat("fr-CA", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-}).format(dateNow);
-
-let dateYesterdayFormat = new Intl.DateTimeFormat("fr-CA", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-}).format(dateNow.setDate(dateNow.getDate() - 1));
-
-let dateFragment = dateNowFormat.split("-");
+let date = DateTime.now();
+let dateNowFormat = date.toISO().split("T")[0];
+let dateYesterdayFormat = date.minus({ days: 1 }).toISO().split("T")[0];
+let prevMonth = date
+  .minus({ months: 1 })
+  .set({ days: 1 })
+  .toISO()
+  .split("T")[0];
+let nowMonth = date.set({ day: 1 }).toISO().split("T")[0];
+let newFormatMonth = date.toFormat("MM");
 
 const mqtt = client.connect(process.env.MQTT_SERVER, option);
 
@@ -35,33 +32,36 @@ mqtt.on("connect", () => {
 });
 
 mqtt.on("message", async (topic, message) => {
-  console.log(JSON.parse(message));
-  //   const data = JSON.parse(message);
-  //   const queryData = `INSERT INTO data
-  //   (
-  //     iadata, ibdata, icdata, iavgdata,
-  //     vabdata, vbcdata, vcadata, vandata,
-  //     vbndata, vcndata, kwdata, deliverydata,
-  //     receiveddata
-  //    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
+  const data = JSON.parse(message);
+  const queryData = `INSERT INTO data
+    (
+      iadata, ibdata, icdata, iavgdata,
+      vabdata, vbcdata, vcadata, vandata,
+      vbndata, vcndata, kwdata, deliverydata,
+      receiveddata
+     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
 
-  //   const values = [
-  //     data.iaData,
-  //     data.ibData,
-  //     data.icData,
-  //     data.iavgData,
-  //     data.vabData,
-  //     data.vbcData,
-  //     data.vcaData,
-  //     data.vanData,
-  //     data.vbnData,
-  //     data.vcnData,
-  //     data.kWData,
-  //     data.deliveryData,
-  //     data.receivedData,
-  //   ];
-
-  //   const result = await query(queryData, values);
+  const values = [
+    data.iaData,
+    data.ibData,
+    data.icData,
+    data.iavgData,
+    data.vabData,
+    data.vbcData,
+    data.vcaData,
+    data.vanData,
+    data.vbnData,
+    data.vcnData,
+    data.kWData,
+    data.deliveryData,
+    data.receivedData,
+  ];
+  try {
+    const result = await query(queryData, values);
+    console.log("Success to insert Cummon Data");
+  } catch (err) {
+    console.log("Failed to insert data : ", err);
+  }
 });
 
 mqtt.on("error", (err) => {
@@ -76,6 +76,12 @@ from data
 where date(timestamp) = date('${dateNowFormat}'::timestamptz)
 ON CONFLICT (time_daily) DO UPDATE
 SET max_daily = EXCLUDED.max_daily;`;
+  try {
+    await query(queryData);
+    console.log("Success to insert Max Daily Data");
+  } catch (err) {
+    console.log("Failed to insert data : ", err);
+  }
 }
 
 async function insertCalculateDaily() {
@@ -101,6 +107,12 @@ FROM daily_difference
 WHERE day = '${dateNowFormat}'
 ON CONFLICT (timestamp) DO UPDATE
 SET data_daily = EXCLUDED.data_daily;`;
+  try {
+    await query(queryData);
+    console.log("Success to insert Calculate Daily Data");
+  } catch (err) {
+    console.log("Failed to insert data : ", err);
+  }
 }
 
 async function insertMaxMonthly() {
@@ -111,37 +123,55 @@ SELECT
 FROM 
     calculate_daily
 WHERE 
-    EXTRACT(YEAR FROM timestamp) = ${dateFragment[0]}
-    AND EXTRACT(MONTH FROM timestamp) = ${dateFragment[1]}
+    EXTRACT(YEAR FROM timestamp) = ${date.year}
+    AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth}
 ON CONFLICT (time_monthly) DO UPDATE
 SET max_monthly = EXCLUDED.max_monthly;`;
+
+  try {
+    await query(queryData);
+    console.log("Success to insert Max Monthly Data");
+  } catch (err) {
+    console.log("Failed to insert data : ", err);
+  }
 }
 
-//   async function insertCalculateMonthly() {
-//     const queryData = `WITH monthly_data AS (
-//     SELECT
-//         DATE_TRUNC('month', time_monthly::timestamptz) AS month,
-//         MAX(max_monthly::numeric) AS max_daily_difference
-//     FROM monthly
-//     WHERE DATE_TRUNC('month', time_monthly::timestamptz) IN (DATE_TRUNC('month', '${currentMonth}'::timestamptz), DATE_TRUNC('month', '${earlyMonth}'::timestamptz))
-//     GROUP BY DATE_TRUNC('month', time_monthly::timestamptz)
-// ),
-// monthly_difference AS (
-//     SELECT
-//         month,
-//         max_daily_difference - LAG(max_daily_difference, 1) OVER (ORDER BY month) AS total_monthly
-//     FROM monthly_data
-// )
-// INSERT INTO calculate_monthly (data_monthly, timestamp)
-// SELECT
-//     total_monthly,
-//     month
-// FROM monthly_difference
-// WHERE month = DATE_TRUNC('month', '${currentMonth}'::timestamptz)
-// ON CONFLICT (timestamp) DO UPDATE
-// SET data_monthly = EXCLUDED.data_monthly;`;
-//   }
+async function insertCalculateMonthly() {
+  const queryData = `WITH monthly_data AS (
+    SELECT
+        DATE_TRUNC('month', time_monthly::timestamptz) AS month,
+        MAX(max_monthly::numeric) AS max_daily_difference
+    FROM monthly
+    WHERE DATE_TRUNC('month', time_monthly::timestamptz) IN (DATE_TRUNC('month', '${nowMonth}'::timestamptz), DATE_TRUNC('month', '${prevMonth}'::timestamptz))
+    GROUP BY DATE_TRUNC('month', time_monthly::timestamptz)
+),
+monthly_difference AS (
+    SELECT
+        month,
+        max_daily_difference - LAG(max_daily_difference, 1) OVER (ORDER BY month) AS total_monthly
+    FROM monthly_data
+)
+INSERT INTO calculate_monthly (data_monthly, timestamp)
+SELECT
+    total_monthly,
+    month
+FROM monthly_difference
+WHERE month = DATE_TRUNC('month', '${nowMonth}'::timestamptz)
+ON CONFLICT (timestamp) DO UPDATE
+SET data_monthly = EXCLUDED.data_monthly;`;
+  try {
+    await query(queryData);
+    console.log("Success to insert Calculate Monthly Data");
+  } catch (err) {
+    console.log("Failed to insert data : ", err);
+  }
+}
 
-setInterval(() => {});
+setInterval(() => {
+  insertMaxDaily();
+  insertMaxMonthly();
+  insertCalculateDaily();
+  insertCalculateMonthly();
+}, 11000);
 
 module.exports = mqtt;

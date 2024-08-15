@@ -1,13 +1,10 @@
 const { Server } = require("socket.io");
 const { query } = require("../helper/helperdb");
+const { DateTime } = require("luxon");
 
-let date = new Intl.DateTimeFormat("fr-CA", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-}).format(new Date());
-
-let dateFragment = date.split("-");
+let getDate = DateTime.now();
+let newFormatMonth = getDate.toFormat("MM");
+let date = getDate.toISO().split("T")[0];
 
 async function getCummon(socket) {
   const queryData = `SELECT vabData, vbcData, vcaData, vanData, vbnData, vcnData from data order by id desc limit 1 `;
@@ -23,9 +20,10 @@ async function getToday(socket) {
 
 async function getMonth(socket) {
   const queryData = `SELECT CAST(data_monthly AS numeric) FROM calculate_monthly WHERE 
-    EXTRACT(YEAR FROM timestamp) = ${dateFragment[0]}
-    AND EXTRACT(MONTH FROM timestamp) = ${dateFragment[1]};
+    EXTRACT(YEAR FROM timestamp) = ${getDate.year}
+    AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth};
 `;
+
   const result = await query(queryData);
   socket.emit("dataMonthly", result.rows);
 }
@@ -48,9 +46,10 @@ async function graphB(socket) {
 FROM 
     calculate_daily
 WHERE 
-    to_char(timestamp, 'YYYY-MM') = '${dateFragment[0]}-${dateFragment[1]}'
+    to_char(timestamp, 'YYYY-MM') = '${getDate.year}-${newFormatMonth}'
 ORDER BY 
     day;`;
+  // console.log(queryData);
   const result = await query(queryData);
   socket.emit("monthData", result.rows);
 }
@@ -62,7 +61,7 @@ async function graphC(socket) {
   FROM
       calculate_monthly
   WHERE
-      EXTRACT(YEAR FROM timestamp) = ${dateFragment[0]}
+      EXTRACT(YEAR FROM timestamp) = ${getDate.year}
   ORDER BY
       month;`;
   const result = await query(queryData);
@@ -74,13 +73,13 @@ function initializeSocket(server) {
   io.on("connection", async (socket) => {
     console.log(`Socket Connected : ${socket.id}`);
 
-    setInterval(async () => {
+    setInterval(() => {
       // await graphA(socket);
-      await graphB(socket);
-      await graphC(socket);
-      await getCummon(socket);
-      await getToday(socket);
-      await getMonth(socket);
+      graphB(socket);
+      graphC(socket);
+      getCummon(socket);
+      getToday(socket);
+      getMonth(socket);
     }, 1000);
   });
 }

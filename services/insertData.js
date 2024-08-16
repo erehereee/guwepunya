@@ -8,17 +8,6 @@ const option = {
   password: "ereh",
 };
 
-let date = DateTime.now();
-let dateNowFormat = date.toISO().split("T")[0];
-let dateYesterdayFormat = date.minus({ days: 1 }).toISO().split("T")[0];
-let prevMonth = date
-  .minus({ months: 1 })
-  .set({ days: 1 })
-  .toISO()
-  .split("T")[0];
-let nowMonth = date.set({ day: 1 }).toISO().split("T")[0];
-let newFormatMonth = date.toFormat("MM");
-
 const mqtt = client.connect(process.env.MQTT_SERVER, option);
 
 mqtt.on("connect", () => {
@@ -69,7 +58,7 @@ mqtt.on("error", (err) => {
   mqtt.end();
 });
 
-async function insertMaxDaily() {
+async function insertMaxDaily(dateNowFormat) {
   const queryData = `insert into daily (max_daily, time_daily) 
 select MAX(CAST(deliverydata as numeric)), '${dateNowFormat}'::timestamptz
 from data 
@@ -84,7 +73,7 @@ SET max_daily = EXCLUDED.max_daily;`;
   }
 }
 
-async function insertCalculateDaily() {
+async function insertCalculateDaily(dateNowFormat, dateYesterdayFormat) {
   const queryData = `WITH max_data AS (
     SELECT 
         DATE(time_daily) AS day,
@@ -115,15 +104,15 @@ SET data_daily = EXCLUDED.data_daily;`;
   }
 }
 
-async function insertMaxMonthly() {
+async function insertMaxMonthly(dateNowFormat, newFormatMonth, year) {
   const queryData = `insert into monthly (max_monthly, time_monthly) 
 SELECT 
     SUM(CAST(data_daily as numeric)),
-	DATE_TRUNC('month', '${dateNowFormat}'::timestamptz)
+    DATE_TRUNC('month', '${dateNowFormat}'::timestamptz)
 FROM 
     calculate_daily
 WHERE 
-    EXTRACT(YEAR FROM timestamp) = ${date.year}
+    EXTRACT(YEAR FROM timestamp) = ${year}
     AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth}
 ON CONFLICT (time_monthly) DO UPDATE
 SET max_monthly = EXCLUDED.max_monthly;`;
@@ -136,7 +125,7 @@ SET max_monthly = EXCLUDED.max_monthly;`;
   }
 }
 
-async function insertCalculateMonthly() {
+async function insertCalculateMonthly(nowMonth, prevMonth) {
   const queryData = `WITH monthly_data AS (
     SELECT
         DATE_TRUNC('month', time_monthly::timestamptz) AS month,
@@ -168,10 +157,22 @@ SET data_monthly = EXCLUDED.data_monthly;`;
 }
 
 setInterval(() => {
-  insertMaxDaily();
-  insertMaxMonthly();
-  insertCalculateDaily();
-  insertCalculateMonthly();
+  let date = DateTime.now();
+  let dateNowFormat = date.toISO().split("T")[0];
+  let dateYesterdayFormat = date.minus({ days: 1 }).toISO().split("T")[0];
+  let newFormatMonth = date.toFormat("MM");
+  let year = date.year;
+  let prevMonth = date
+    .minus({ months: 1 })
+    .set({ day: 1 })
+    .toISO()
+    .split("T")[0];
+  let nowMonth = date.set({ day: 1 }).toISO().split("T")[0];
+
+  insertMaxDaily(dateNowFormat);
+  insertMaxMonthly(dateNowFormat, newFormatMonth, year);
+  insertCalculateDaily(dateNowFormat, dateYesterdayFormat);
+  insertCalculateMonthly(nowMonth, prevMonth);
 }, 11000);
 
 module.exports = mqtt;

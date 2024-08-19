@@ -32,7 +32,7 @@ socket.on("connect", () => {
     message.forEach((e) => {
       const data_monthly = e.data_monthly / 1000;
 
-      const tarif = 1.444;
+      const tarif = 2.5;
       let dataTarif = data_monthly * tarif * 1000;
 
       let newAmount = new Intl.NumberFormat("id-ID", {

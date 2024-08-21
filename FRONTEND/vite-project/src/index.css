@@ -330,6 +330,33 @@ body {
   grid-gap: 10px;
   font-weight: 500;
   font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-navigation {
+  height: 36px;
+  background-color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  border-radius: 10px;
+  color: var(--light);
+}
+
+.btn-download.active {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 36px;
+  background: var(--dark);
+  color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 #content main .head-main {
@@ -340,6 +367,25 @@ body {
   padding: 10px;
   grid-gap: 16px;
   box-sizing: border-box;
+}
+
+#content main .body-container {
+  display: flex;
+  margin-top: 10px;
+  min-height: 66vh;
+  flex-direction: column;
+  background: var(--light);
+  border-radius: 20px;
+  padding: 10px;
+  grid-gap: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#content main .navigator {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #content main .head-main .box-head {

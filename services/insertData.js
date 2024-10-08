@@ -119,6 +119,7 @@ SET max_monthly = EXCLUDED.max_monthly;`;
 
   try {
     await query(queryData);
+
     console.log("Success to insert Max Monthly Data");
   } catch (err) {
     console.log("Failed to insert data : ", err);
@@ -150,6 +151,7 @@ ON CONFLICT (timestamp) DO UPDATE
 SET data_monthly = EXCLUDED.data_monthly;`;
   try {
     await query(queryData);
+    console.log(queryData);
     console.log("Success to insert Calculate Monthly Data");
   } catch (err) {
     console.log("Failed to insert data : ", err);
@@ -174,5 +176,26 @@ setInterval(() => {
   insertCalculateDaily(dateNowFormat, dateYesterdayFormat);
   insertCalculateMonthly(nowMonth, prevMonth);
 }, 11000);
+
+// const setTest = () => {
+//   let date = DateTime.now();
+//   let dateNowFormat = date.toISO().split("T")[0];
+//   let dateYesterdayFormat = date.minus({ days: 1 }).toISO().split("T")[0];
+//   let newFormatMonth = date.toFormat("MM");
+//   let year = date.year;
+//   let prevMonth = date
+//     .minus({ months: 1 })
+//     .set({ day: 1 })
+//     .toISO()
+//     .split("T")[0];
+//   let nowMonth = date.set({ day: 1 }).toISO().split("T")[0];
+
+//   insertMaxDaily(dateNowFormat);
+//   insertMaxMonthly(dateNowFormat, newFormatMonth, year);
+//   insertCalculateDaily(dateNowFormat, dateYesterdayFormat);
+//   insertCalculateMonthly(nowMonth, prevMonth);
+// };
+
+// setTest();
 
 module.exports = mqtt;

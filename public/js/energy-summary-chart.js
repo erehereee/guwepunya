@@ -44,33 +44,33 @@ function createChart(labels, typeChart, count) {
       {
         label: "R Voltage",
         data: [], // Data akan diisi nanti saat update
-        backgroundColor: "rgba(0, 0, 0, 0.2)",
-        borderColor: "#000",
+        backgroundColor: "rgba(255, 0, 0, 0.2)",
+        borderColor: "#ff1100",
         borderWidth: 1,
-        pointBackgroundColor: "#000",
-        pointBorderColor: "#000",
+        pointBackgroundColor: "#ff1100",
+        pointBorderColor: "#ff1100",
         pointRadius: 5,
         fill: true,
       },
       {
         label: "S Voltage",
         data: [], // Data akan diisi nanti saat update
-        backgroundColor: "rgba(66, 23, 2, 0.2)",
-        borderColor: "#421702",
+        backgroundColor: "rgba(255, 196, 0, 0.2)",
+        borderColor: "#ffc400",
         borderWidth: 1,
-        pointBackgroundColor: "#421702",
-        pointBorderColor: "#421702",
+        pointBackgroundColor: "#ffc400",
+        pointBorderColor: "#ffc400",
         pointRadius: 5,
         fill: true,
       },
       {
         label: "T Voltage",
         data: [], // Data akan diisi nanti saat update
-        backgroundColor: "rgba(97, 95, 94, 0.2)",
-        borderColor: "#615f5e",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+        borderColor: "##000000",
         borderWidth: 1,
-        pointBackgroundColor: "#615f5e",
-        pointBorderColor: "#615f5e",
+        pointBackgroundColor: "##000000",
+        pointBorderColor: "##000000",
         pointRadius: 5,
         fill: true,
       }
@@ -226,7 +226,7 @@ socket.on("connect", () => {
         const data = label();
         message.map((e) => {
           const month = e.month - 1;
-          data[month] = e.data_monthly / 1000;
+          data[month] = e.max_monthly / 1000;
         });
         chart.data.datasets[0].data = data;
         chart.data.datasets[0].backgroundColor = "#3C91E6";

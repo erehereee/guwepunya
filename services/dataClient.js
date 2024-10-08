@@ -8,16 +8,34 @@ async function getCummon(socket) {
   socket.emit("dataCummon", result.rows);
 }
 
+async function getBiogas(socket) {
+  const queryData = `SELECT ft_101, ft_102, ft_201, ft_301, ft_401, ft_402, ft_601, ae_201, ae_202, ae_301, ae_401, ae_402, ae_501, ae_601, pt_401, pt_901, pt_902, pt_201, le_201 from analog_input where id = 1`;
+  const result = await query(queryData);
+  socket.emit("dataBiogas", result.rows);
+}
+
 async function getToday(socket, date) {
   const queryData = `SELECT data_daily FROM calculate_daily WHERE date(timestamp) = date('${date}'::timestamptz)`;
   const result = await query(queryData);
   socket.emit("dataToday", result.rows);
 }
 
-async function getMonth(socket, newFormatMonth, year) {
-  const queryData = `SELECT CAST(data_monthly AS numeric) FROM calculate_monthly WHERE 
+// async function getMonth(socket, newFormatMonth, year) {
+//   const queryData = `SELECT CAST(data_monthly AS numeric) FROM calculate_monthly WHERE
+//     EXTRACT(YEAR FROM timestamp) = ${year}
+//     AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth};
+// `;
+// }
+
+async function getMonth(socket, newFormatMonth, year, date) {
+  const queryData = `SELECT
+    SUM(CAST(data_daily as numeric)),
+    DATE_TRUNC('month', '${date}'::timestamptz)
+FROM
+    calculate_daily
+WHERE
     EXTRACT(YEAR FROM timestamp) = ${year}
-    AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth};
+    AND EXTRACT(MONTH FROM timestamp) = ${newFormatMonth}
 `;
 
   const result = await query(queryData);
@@ -55,12 +73,12 @@ ORDER BY
 
 async function graphC(socket, year) {
   const queryData = `SELECT
-      EXTRACT(MONTH FROM timestamp) AS month,
-      data_monthly
+      EXTRACT(MONTH FROM time_monthly) AS month,
+      max_monthly
   FROM
-      calculate_monthly
+      monthly
   WHERE
-      EXTRACT(YEAR FROM timestamp) = ${year}
+      EXTRACT(YEAR FROM time_monthly) = ${year}
   ORDER BY
       month;`;
   const result = await query(queryData);
@@ -81,8 +99,9 @@ function initializeSocket(server) {
       graphB(socket, newFormatMonth, year);
       graphC(socket, year);
       getCummon(socket);
+      getBiogas(socket);
       getToday(socket, date);
-      getMonth(socket, newFormatMonth, year);
+      getMonth(socket, newFormatMonth, year, date);
     }, 1000);
   });
 }
